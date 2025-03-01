@@ -133,8 +133,8 @@ This project is licensed under the **MIT License**.
 ---
 
 ## 📬 Contact
-📧 Email: support@forensic360.com  
-🔗 GitHub: [Forensic 360 Repository](https://github.com/your-repo/forensic360)  
+📧 Email: mohansarady@gmai.com  
+🔗 GitHub: [Forensic 360 Repository](https://github.com/mohancoder2k/Forensic360)  
 
 ---
 
