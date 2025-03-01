@@ -1,16 +1,46 @@
 # 🔍 Forensic 360 - Digital Investigation Platform  
 
-Forensic 360 is an advanced digital forensic investigation tool built using **FastAPI (Backend), Firebase (Database), and React (Frontend)**. This platform enables secure forensic data analysis, evidence management, and reporting.  
+Forensic 360 is an advanced **digital forensic investigation tool** designed to help law enforcement, cybersecurity experts, and forensic analysts collect, analyze, and manage digital evidence securely.  
+
+This platform leverages **FastAPI for the backend, Firebase for the database, and React for the frontend**, ensuring a fast, scalable, and efficient digital forensic solution.  
+
+---
+
+## 📌 Table of Contents  
+- [🚀 Project Overview](#-project-overview)  
+- [🛠️ Tech Stack](#️-tech-stack)  
+- [📅 Roadmap](#-roadmap)  
+- [🎯 Features](#-features)  
+- [🔧 Installation & Setup](#-installation--setup)  
+  - [Backend - FastAPI Setup](#-backend---fastapi-setup)  
+  - [Frontend - React Setup](#-frontend---react-setup)  
+- [🏗️ Directory Structure](#️-directory-structure)  
+- [🤝 Contributing](#-contributing)  
+- [📜 License](#-license)  
+- [📧 Contact](#-contact)  
+
+---
 
 ## 🚀 Project Overview  
-Forensic 360 aims to streamline digital forensic investigations by providing a secure, scalable, and efficient solution for evidence collection, analysis, and reporting.  
+Forensic 360 provides an intuitive and **secure forensic data management system** that allows users to:  
+✅ **Authenticate securely** using Firebase Authentication  
+✅ **Upload & analyze forensic evidence** such as images, videos, and documents  
+✅ **Store & manage evidence** securely using Firebase Firestore  
+✅ **Generate detailed forensic reports** for case analysis  
+
+This project aims to **streamline forensic investigations** by providing a **centralized, scalable, and efficient solution** for forensic experts.  
+
+---
 
 ## 🛠️ Tech Stack  
-- **Backend**: FastAPI (Python)  
-- **Database**: Firebase Firestore & Firebase Storage  
-- **Frontend**: React (JavaScript)  
-- **Authentication**: Firebase Auth  
-- **Hosting**: Firebase Hosting / Vercel  
+
+| Component   | Technology Used |
+|------------|----------------|
+| **Backend** | FastAPI (Python) |
+| **Frontend** | React (JavaScript) |
+| **Database** | Firebase Firestore & Firebase Storage |
+| **Authentication** | Firebase Auth |
+| **Hosting** | Firebase Hosting / Vercel |
 
 ---
 
@@ -50,20 +80,22 @@ Forensic 360 aims to streamline digital forensic investigations by providing a s
 
 ---
 
-## 🎯 Features (MVP)  
+## 🎯 Features  
+
 ✅ **User Authentication** (Firebase Auth)  
 ✅ **Upload Forensic Data** (Images, Videos, Documents)  
 ✅ **Secure Storage & Retrieval** (Firebase Firestore)  
 ✅ **Automated Evidence Processing**  
 ✅ **Report Generation & Visualization**  
+✅ **Scalable & Secure Infrastructure**  
 
 ---
 
 ## 🔧 Installation & Setup  
 
 ### 📌 Backend - FastAPI Setup  
-1. Clone the repository:  
+
+1. **Clone the repository:**  
    ```sh
    git clone https://github.com/YOUR-USERNAME/Forensic360.git  
    cd Forensic360/backend  
-
