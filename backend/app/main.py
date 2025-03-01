@@ -6,7 +6,7 @@ app = FastAPI()
 @app.post("/upload/")
 async def upload(file: UploadFile = File(...)):
     """Uploads a file to Firebase Storage."""
-    return upload_file(file)
+    return upload_file(file)   
 
 @app.get("/")
 def home():
