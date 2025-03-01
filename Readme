@@ -1,120 +1,149 @@
-🔍 Forensic 360 - Digital Investigation Platform
+🔍 **Forensic 360 - Digital Investigation Platform**  
 Forensic 360 is an advanced digital forensic investigation tool designed to assist law enforcement, cybersecurity experts, and forensic analysts in securely collecting, analyzing, and managing digital evidence.
 
-This platform leverages FastAPI for the backend, Firebase for the database, and React for the frontend, ensuring a fast, scalable, and efficient digital forensic solution.
+This platform leverages **FastAPI** for the backend, **Firebase** for the database, and **React** for the frontend, ensuring a fast, scalable, and efficient digital forensic solution.
 
-📌 Table of Contents
-📖 Project Overview
-🛠 Tech Stack
-🗺 Roadmap
-🎯 Features
-🏗 Installation & Setup
-Backend - FastAPI Setup
-Frontend - React Setup
-📂 Directory Structure
-🤝 Contributing
-📜 License
-📬 Contact
-📅 Day 1 Progress Update
-📖 Project Overview
+---
+
+## 📌 Table of Contents  
+1. 📖 Project Overview  
+2. 🛠 Tech Stack  
+3. 🗺 Roadmap  
+4. 🎯 Features  
+5. 🏗 Installation & Setup  
+   - Backend - FastAPI Setup  
+   - Frontend - React Setup  
+6. 📂 Directory Structure  
+7. 🤝 Contributing  
+8. 📜 License  
+9. 📬 Contact  
+10. 📅 Day 1 Progress Update  
+
+---
+
+## 📖 Project Overview  
 Forensic 360 is a comprehensive digital forensics platform that streamlines the process of evidence management. It provides powerful capabilities for securely handling and analyzing digital data while maintaining an intuitive user experience.
 
-🛠 Tech Stack
-Component	Technology
-Frontend	React + Vite
-Backend	FastAPI
-Database	Firebase
-Hosting	Firebase Hosting
-Collaboration	GitHub
-🗺 Roadmap
-Milestone	Status	Expected Completion
-Setup Firebase & GitHub	✅ Done	Day 1
-Initialize Frontend (React)	✅ Done	Day 1
-Initialize Backend (FastAPI)	✅ Done	Day 1
-Connect Firebase with FastAPI	✅ Done	Day 1
-Implement User Authentication	🚧 In Progress	Day 2
-Build Core Features	⏳ Pending	Day 3-7
-Testing & Debugging	⏳ Pending	Day 8-10
-Deployment	⏳ Pending	Day 11
-🎯 Features
-✔ Secure Digital Evidence Management
-✔ Real-time Collaboration
-✔ Cloud-based Data Storage
-✔ Fast & Scalable Architecture
-✔ User Authentication & Role Management
+---
 
-🏗 Installation & Setup
-Backend - FastAPI Setup
-Clone the repository:
-bash
-Copy
-Edit
+## 🛠 Tech Stack  
+| **Component**   | **Technology**        |
+|---------------|---------------------|
+| Frontend     | React + Vite        |
+| Backend      | FastAPI             |
+| Database     | Firebase            |
+| Hosting      | Firebase Hosting    |
+| Collaboration | GitHub             |
+
+---
+
+## 🗺 Roadmap  
+| **Milestone**                        | **Status**     | **Expected Completion** |
+|---------------------------------|--------------|--------------------|
+| Setup Firebase & GitHub         | ✅ Done       | Day 1             |
+| Initialize Frontend (React)      | ✅ Done       | Day 1             |
+| Initialize Backend (FastAPI)     | ✅ Done       | Day 1             |
+| Connect Firebase with FastAPI    | ✅ Done       | Day 1             |
+| Implement User Authentication    | 🚧 In Progress | Day 2             |
+| Build Core Features              | ⏳ Pending    | Day 3-7           |
+| Testing & Debugging              | ⏳ Pending    | Day 8-10          |
+| Deployment                       | ⏳ Pending    | Day 11            |
+
+---
+
+## 🎯 Features  
+✔ **Secure Digital Evidence Management**  
+✔ **Real-time Collaboration**  
+✔ **Cloud-based Data Storage**  
+✔ **Fast & Scalable Architecture**  
+✔ **User Authentication & Role Management**  
+
+---
+
+## 🏗 Installation & Setup  
+### Backend - FastAPI Setup  
+#### Clone the repository:
+```bash
 git clone https://github.com/your-repo/forensic360.git
 cd forensic360/backend
-Create a virtual environment:
-bash
-Copy
-Edit
+```
+
+#### Create a virtual environment:
+```bash
 python -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
-Install dependencies:
-bash
-Copy
-Edit
+```
+
+#### Install dependencies:
+```bash
 pip install -r requirements.txt
-Run the FastAPI server:
-bash
-Copy
-Edit
+```
+
+#### Run the FastAPI server:
+```bash
 uvicorn main:app --reload
-Frontend - React Setup
-Clone the repository & navigate to frontend:
-bash
-Copy
-Edit
+```
+
+### Frontend - React Setup  
+#### Clone the repository & navigate to frontend:
+```bash
 git clone https://github.com/your-repo/forensic360.git
 cd forensic360/frontend
-Install dependencies:
-bash
-Copy
-Edit
+```
+
+#### Install dependencies:
+```bash
 npm install
-Start the development server:
-bash
-Copy
-Edit
+```
+
+#### Start the development server:
+```bash
 npm run dev
-📂 Directory Structure
-bash
-Copy
-Edit
+```
+
+---
+
+## 📂 Directory Structure  
+```bash
 forensic360/
 ├── backend/   # FastAPI Backend
 ├── frontend/  # React Frontend
 ├── docs/      # Documentation
 ├── README.md  # Project Overview
-🤝 Contributing
+```
+
+---
+
+## 🤝 Contributing  
 We welcome contributions! Please follow the standard GitHub workflow:
+1. Fork the repository  
+2. Create a feature branch  
+3. Commit changes  
+4. Open a pull request  
 
-Fork the repository
-Create a feature branch
-Commit changes
-Open a pull request
-📜 License
-This project is licensed under the MIT License.
+---
 
-📬 Contact
-📧 Email: support@forensic360.com
-🔗 GitHub: Forensic 360 Repository
+## 📜 License  
+This project is licensed under the **MIT License**.
 
-📅 Day 1 Progress Update
-✅ Completed Tasks:
-✅ Created a Firebase Account for cloud storage.
-✅ Initialized a GitHub Repository for collaboration with teammates.
-✅ Set up the frontend using Vite + React.
-✅ Built the FastAPI backend.
-✅ Established Firebase Database and connected it to FastAPI.
-✅ Ensured the entire project was set up on all teammates' laptops.
-✅ All teammates are now collaboratively working, pushing, and pulling changes.
+---
 
-Next Steps: Continue implementing core features and authentication on Day 2.
+## 📬 Contact  
+📧 **Email:** support@forensic360.com  
+🔗 **GitHub:** [Forensic 360 Repository](https://github.com/your-repo/forensic360)  
+
+---
+
+## 📅 Day 1 Progress Update  
+### ✅ Completed Tasks:  
+✔ Created a Firebase Account for cloud storage.  
+✔ Initialized a GitHub Repository for collaboration with teammates.  
+✔ Set up the frontend using **Vite + React**.  
+✔ Built the **FastAPI backend**.  
+✔ Established **Firebase Database** and connected it to FastAPI.  
+✔ Ensured the entire project was set up on all teammates' laptops.  
+✔ All teammates are now collaboratively working, pushing, and pulling changes.  
+
+### 🚀 Next Steps:  
+➡ Continue implementing **core features** and **authentication** on **Day 2**.
+
