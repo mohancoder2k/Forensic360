@@ -1,0 +1,69 @@
+# 🔍 Forensic 360 - Digital Investigation Platform  
+
+Forensic 360 is an advanced digital forensic investigation tool built using **FastAPI (Backend), Firebase (Database), and React (Frontend)**. This platform enables secure forensic data analysis, evidence management, and reporting.  
+
+## 🚀 Project Overview  
+Forensic 360 aims to streamline digital forensic investigations by providing a secure, scalable, and efficient solution for evidence collection, analysis, and reporting.  
+
+## 🛠️ Tech Stack  
+- **Backend**: FastAPI (Python)  
+- **Database**: Firebase Firestore & Firebase Storage  
+- **Frontend**: React (JavaScript)  
+- **Authentication**: Firebase Auth  
+- **Hosting**: Firebase Hosting / Vercel  
+
+---
+
+## 📅 Roadmap  
+
+### 📌 **Phase 1: Project Setup (Day 1-2)**  
+✅ Create GitHub Repository  
+✅ Setup FastAPI Project  
+✅ Setup Firebase & Firestore  
+✅ Initialize React Frontend  
+
+### 📌 **Phase 2: Backend Development (Day 3-10)**  
+- [ ] Implement Firebase Authentication in FastAPI  
+- [ ] Develop API endpoints for:  
+  - User Authentication (Signup/Login)  
+  - Upload & Retrieve Forensic Data  
+  - Evidence Analysis & Report Generation  
+- [ ] Connect FastAPI with Firebase Firestore & Storage  
+
+### 📌 **Phase 3: Frontend Development (Day 11-20)**  
+- [ ] Implement Firebase Auth in React  
+- [ ] Create UI for:  
+  - User Authentication  
+  - Dashboard (Upload & View Forensic Evidence)  
+  - Report Generation  
+- [ ] Integrate FastAPI APIs with React  
+
+### 📌 **Phase 4: Testing & Deployment (Day 21-27)**  
+- [ ] End-to-End Testing  
+- [ ] Optimize Performance & Fix Bugs  
+- [ ] Deploy Backend & Frontend (Firebase / Vercel)  
+
+### 📌 **Phase 5: Final Touches & Presentation (Day 28-30)**  
+- [ ] Polish UI & Improve UX  
+- [ ] Prepare Demo & Documentation  
+- [ ] Submit Project for Final Evaluation  
+
+---
+
+## 🎯 Features (MVP)  
+✅ **User Authentication** (Firebase Auth)  
+✅ **Upload Forensic Data** (Images, Videos, Documents)  
+✅ **Secure Storage & Retrieval** (Firebase Firestore)  
+✅ **Automated Evidence Processing**  
+✅ **Report Generation & Visualization**  
+
+---
+
+## 🔧 Installation & Setup  
+
+### 📌 Backend - FastAPI Setup  
+1. Clone the repository:  
+   ```sh
+   git clone https://github.com/YOUR-USERNAME/Forensic360.git  
+   cd Forensic360/backend  
+
