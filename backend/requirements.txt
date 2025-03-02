@@ -3,3 +3,5 @@ uvicorn
 python-dotenv
 firebase-admin
 pydantic
+numpy
+cv2
