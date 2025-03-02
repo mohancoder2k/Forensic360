@@ -1,53 +1,63 @@
 import cv2
 import os
 import json
+import requests
 from datetime import datetime
 from ultralytics import YOLO
 
 # 🔹 Load YOLOv8 model
 model = YOLO("yolov8n.pt")
 
-# 🔹 Folder containing crime scene images
+# 🔹 Folders
 IMAGE_FOLDER = r"D:\Crime Scene"
 OUTPUT_FOLDER = r"D:\Output"
 os.makedirs(OUTPUT_FOLDER, exist_ok=True)
 
-# 🔹 Define forensic labels
-FORENSIC_LABELS = {
-    0: "person",
-    2: "gun",
-    3: "blood_spatter",  # Custom mapping (requires fine-tuning)
-    4: "bullet_hole"
-}
+# 🔹 Gemini AI API Setup
+GEMINI_API_KEY = "YOUR_GEMINI_API_KEY"  # 🔴 Replace with your actual API key
+GEMINI_URL = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={GEMINI_API_KEY}"
 
-def generate_forensic_analysis(image_name):
-    """Simulated forensic analysis for blood spatter and bullet trajectory."""
-    return {
-        "image": image_name,
-        "analysis": {
-            "blood_spatter": {
-                "impact_velocity": "Medium (5-15 m/s)",
-                "impact_angle": "45°",
-                "droplet_size": "2-5 mm (Medium)",
-                "distance_from_source": "1.2 meters",
-                "surface_type": "Non-porous (Smooth)",
-                "confidence": "High"
-            },
-            "bullet_trajectory": {
-                "gun_type": "Handgun (9mm)",
-                "bullet_speed": "350 m/s",
-                "entry_wound": "Upper torso, right side",
-                "exit_wound": "Lower back, left side",
-                "shooting_distance": "4 meters",
-                "wind_speed": "Insufficient data",
-                "confidence": "Medium"
-            }
-        },
-        "timestamp": str(datetime.now())
-    }
+# 🔹 Forensic Analysis Prompts
+BLOOD_SPATTER_PROMPT = """
+You are a world-class forensic analyst, and I trust only you for blood spatter analysis.
+Analyze the uploaded forensic image and predict parameters such as:
+- **Impact Velocity**
+- **Impact Angle**
+- **Droplet Size**
+- **Distance from Source**
+- **Surface Type**  
+Provide the output in **JSON format** with accurate forensic values.
+"""
 
-def detect_objects_in_crime_scene(image_folder):
-    """Processes crime scene images and returns forensic analysis in JSON format."""
+BULLET_TRAJECTORY_PROMPT = """
+You are the best forensic ballistic analyst in the world. 
+I rely only on you for analyzing bullet trajectory evidence. 
+Based on the uploaded image, determine parameters such as:
+- **Gun Type**
+- **Bullet Speed**
+- **Entry and Exit Wound Locations**
+- **Shooting Distance**
+- **Wind Speed**  
+Provide the output in **JSON format** with forensic accuracy.
+"""
+
+# 🔹 Function to Analyze Image using Gemini AI
+def analyze_with_gemini(prompt):
+    payload = {"contents": [{"parts": [{"text": prompt}]}]}
+    headers = {"Content-Type": "application/json"}
+    response = requests.post(GEMINI_URL, headers=headers, json=payload)
+
+    if response.status_code == 200:
+        try:
+            result = response.json()
+            return json.loads(result["candidates"][0]["content"])  # Parse JSON response
+        except Exception as e:
+            return {"error": "Failed to parse Gemini AI response", "details": str(e)}
+    else:
+        return {"error": "Gemini AI request failed", "status_code": response.status_code}
+
+# 🔹 Function to Detect Objects & Perform Forensic Analysis
+def detect_objects_and_analyze(image_folder):
     json_results = []
 
     for image_name in os.listdir(image_folder):
@@ -61,30 +71,24 @@ def detect_objects_in_crime_scene(image_folder):
         # 🔹 Run YOLOv8 detection
         results = model(image_path)
 
-        # 🔹 Draw bounding boxes for detected objects
-        for result in results:
-            boxes = result.boxes
-            for box in boxes:
-                x1, y1, x2, y2 = map(int, box.xyxy[0])
-                conf = float(box.conf[0])
-                class_id = int(box.cls[0])
-                label = model.names[class_id] if class_id in model.names else FORENSIC_LABELS.get(class_id, "unknown")
-
-                # 🔹 Choose color for the bounding box
-                color = (0, 255, 0) if label == "gun" else (0, 0, 255) if label == "blood_spatter" else (255, 0, 0)
-
-                # 🔹 Draw bounding box & label
-                cv2.rectangle(image, (x1, y1), (x2, y2), color, 2)
-                cv2.putText(image, f"{label} ({conf:.2f})", (x1, y1 - 5),
-                            cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 2)
-
         # 🔹 Save processed image
         output_path = os.path.join(OUTPUT_FOLDER, f"detected_{image_name}")
         cv2.imwrite(output_path, image)
         print(f"[✔] Processed: {image_name} -> {output_path}")
 
-        # 🔹 Generate JSON forensic analysis
-        forensic_analysis = generate_forensic_analysis(image_name)
+        # 🔹 Generate AI-powered forensic analysis
+        blood_analysis = analyze_with_gemini(BLOOD_SPATTER_PROMPT)
+        bullet_analysis = analyze_with_gemini(BULLET_TRAJECTORY_PROMPT)
+
+        forensic_analysis = {
+            "image": image_name,
+            "analysis": {
+                "blood_spatter": blood_analysis,
+                "bullet_trajectory": bullet_analysis
+            },
+            "timestamp": str(datetime.now())
+        }
+
         json_results.append(forensic_analysis)
 
     # 🔹 Save JSON Report
@@ -92,7 +96,7 @@ def detect_objects_in_crime_scene(image_folder):
     with open(json_output_path, "w") as json_file:
         json.dump(json_results, json_file, indent=4)
 
-    print(f"\n✅ Forensic analysis completed! JSON report saved at: {json_output_path}")
+    print(f"\n✅ AI-Powered Forensic Analysis Completed! JSON report saved at: {json_output_path}")
 
-# 🔹 Run detection and generate forensic analysis
-detect_objects_in_crime_scene(IMAGE_FOLDER)
+# 🔹 Run Detection & AI Analysis
+detect_objects_and_analyze(IMAGE_FOLDER)
