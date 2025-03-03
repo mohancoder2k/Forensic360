@@ -1,53 +1,68 @@
 from fastapi import FastAPI, File, UploadFile
-from app.storage import upload_file
-from app.ai_processing import detect_objects
-import requests
-import firebase_admin
-from firebase_admin import credentials, db
+from supabase import create_client, Client
 from typing import List
+import requests
+import os
+from app.ai_processing import detect_objects
 
-# Initialize Firebase
-cred = credentials.Certificate("firebase_credentials.json")
-firebase_admin.initialize_app(
-    cred, {"databaseURL": "https://forensic360-85087-default-rtdb.firebaseio.com"}
-)
+# Supabase credentials
+SUPABASE_URL = "https://azhltddlqwbravaqttsi.supabase.co"
+SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF6aGx0ZGRscXdicmF2YXF0dHNpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDA5OTIwMTYsImV4cCI6MjA1NjU2ODAxNn0.DScnt9PWzmdOURZ4YJpMyWs7hATvVFCbPJ67piMZ_mo"
 
+# Initialize Supabase client
+supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
+
+# FastAPI app
 app = FastAPI()
+
+async def upload_to_supabase(file: UploadFile):
+    """
+    Uploads an image to Supabase Storage and returns the public URL.
+    """
+    file_path = f"crime_images/{file.filename}"
+    
+    # Upload file to Supabase Storage
+    response = supabase.storage.from_("images").upload(file_path, file.file, {"content-type": file.content_type})
+    
+    if "error" in response:
+        return {"error": response["error"]["message"]}
+    
+    # Generate public URL
+    public_url = f"{SUPABASE_URL}/storage/v1/object/public/images/{file_path}"
+    return {"file_url": public_url}
 
 @app.post("/upload-images/")
 async def upload_images(files: List[UploadFile]):
     """
-    Upload multiple images and save their Firebase URLs in Realtime Database.
+    Upload multiple images and store URLs in Supabase PostgreSQL.
     """
     uploaded_files = []
 
     for file in files:
-        result = upload_file(file)  # Upload to Firebase Storage
+        result = await upload_to_supabase(file)
         if "error" in result:
             return result
-
         uploaded_files.append(result["file_url"])
 
-    # Store image URLs under a new crime scene record
-    crime_scene_ref = db.reference("/crime_scenes").push()
-    crime_scene_ref.set({"images": uploaded_files})
+    # Insert image URLs into the database
+    data = {"images": uploaded_files}
+    response = supabase.table("crime_scenes").insert(data).execute()
 
-    return {"crime_scene_id": crime_scene_ref.key, "uploaded_images": uploaded_files}
-
+    return {"crime_scene_id": response.data[0]["id"], "uploaded_images": uploaded_files}
 
 @app.post("/process-images/")
 async def process_images(files: List[UploadFile]):
     """
-    Upload multiple images, run AI detection on each, and store in Firebase.
+    Upload images, process them using AI, and store results in Supabase.
     """
     processed_results = []
 
     for file in files:
-        result = upload_file(file)  # Upload to Firebase Storage
+        result = await upload_to_supabase(file)
         if "error" in result:
             return result
-
-        # Download the image from Firebase
+        
+        # Download image from Supabase URL for AI processing
         response = requests.get(result["file_url"])
         image_path = f"temp_{file.filename}"
         with open(image_path, "wb") as f:
@@ -55,14 +70,15 @@ async def process_images(files: List[UploadFile]):
 
         # Run AI detection
         detections = detect_objects(image_path)
+        os.remove(image_path)  # Clean up temp file
 
         processed_results.append({
             "file_url": result["file_url"],
             "detections": detections
         })
 
-    # Store processed results in Firebase
-    crime_scene_ref = db.reference("/crime_scenes").push()
-    crime_scene_ref.set({"processed_images": processed_results})
+    # Store processed results in Supabase PostgreSQL
+    data = {"processed_images": processed_results}
+    response = supabase.table("crime_scenes").insert(data).execute()
 
-    return {"crime_scene_id": crime_scene_ref.key, "processed_results": processed_results}
+    return {"crime_scene_id": response.data[0]["id"], "processed_results": processed_results}
